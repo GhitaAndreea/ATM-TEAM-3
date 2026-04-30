@@ -9,7 +9,7 @@ WAYPOINTS = {
     "OVDOT" : {"lat": (44, 32, 2) ,"lon": (22, 58, 37)},
 }
 
-#Data on the Military Airspace
+#Data on the Military Airspaces
 MIILITARY_AREAS = [
     {
         "name" : "LRTRA104G",
@@ -39,8 +39,8 @@ MIILITARY_AREAS = [
 
 
 #Functions to export data
-def get_waypoints(name):
-    return WAYPOINTS.get(name)
+def get_waypoints():
+    return WAYPOINTS
 
 def get_military_areas():
     return MIILITARY_AREAS
