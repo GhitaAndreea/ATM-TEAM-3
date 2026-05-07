@@ -105,7 +105,7 @@ MILITARY_AREAS = {
     "LRTRA67T" : {
         "name": "LRTRA67T",
         "polygon_dms": [
-            {"lat": (45, 19, 12), "lon": (24, 17, 15)},
+            {"lat": (44, 19, 12), "lon": (24, 17, 15)},
             {"lat": (44, 18, 49), "lon": (24, 17, 30)},
             {"lat": (43, 55, 3),  "lon": (24, 5, 32)},
             {"lat": (44, 7, 33),  "lon": (23, 48, 37)},
@@ -179,14 +179,26 @@ def get_all_military_areas():
 
 #Functions to export particular data
 def get_waypoint(name):
-    if name:
-        return WAYPOINTS.get(name.upper())
-    return None
+    if not name:
+        return ValueError("Waypoint name cannot be empty")
+    wpt = WAYPOINTS.get(name.upper())
+    if wpt is None:
+        raise KeyError(
+            f"Unknown waypoint {name!r}. "
+            f"Available: {sorted(WAYPOINTS.keys())}"
+        )
+    return wpt
 
 def get_military_area(name):
-    if name:
-        return MILITARY_AREAS.get(name.upper())
-    return None
+    if not name:
+        raise ValueError("Military area name cannot be empty")
+    area = MILITARY_AREAS.get(name.upper())
+    if area is None:
+        raise KeyError(
+            f"Unknown military area {name!r}. "
+            f"Available: {sorted(MILITARY_AREAS.keys())}"
+        )
+    return area
 
 
 '''
@@ -221,8 +233,10 @@ class TestAirspaceCatalogue(unittest.TestCase):
         self.assertEqual(area["upper_limit"], 66000)
 
     def test_get_military_area_none(self):
-        self.assertIsNone(get_military_area(""))
-        self.assertIsNone(get_military_area(None))
+    with self.assertRaises(ValueError):
+        get_military_area("")
+    with self.assertRaises(ValueError):
+        get_military_area(None)
 
     def test_all_exports(self):
         self.assertEqual(len(get_all_waypoints()), 3)
