@@ -12,6 +12,8 @@
 # -------- READ ME ----------------------------------
 
 #Waypoint Catalogue
+
+
 WAYPOINTS = {
     "SODGO" : {"lat": (44, 52, 2) ,"lon": (22, 50, 51) },
     "BACAM": {"lat": (44, 28, 7) ,"lon": (23, 28, 26)},
@@ -230,4 +232,5 @@ class TestAirspaceCatalogue(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+'''
 '''
